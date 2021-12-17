@@ -24,7 +24,9 @@ export const createGroupAuthorizer = (config: GroupAuthorizerConfig) => {
             }
 
             const groupSlug = config.getGroupSlug(context);
-            let group = await security.getGroup({ where: { slug: groupSlug } });
+            let group = await security
+                .getStorageOperations()
+                .getGroup({ where: { slug: groupSlug, tenant: tenant.id } });
 
             if (group) {
                 return group.permissions;
