@@ -10,9 +10,12 @@ import { AppInstaller } from "@webiny/app-admin/components/AppInstaller";
 import { CmsProvider } from "@webiny/app-headless-cms/admin/contexts/Cms";
 import { PageBuilderProvider } from "@webiny/app-page-builder/contexts/PageBuilder";
 import { BrowserRouter } from "@webiny/react-router";
-import { createAuthentication } from "@webiny/app-admin-users-cognito";
+// import { createAuthentication } from "@webiny/app-admin-users-cognito";
 import { createApolloClient } from "./components/apolloClient";
 import { Telemetry } from "./components/Telemetry";
+import { oktaSignIn, oktaAuth } from "./okta";
+import { createAuthentication } from "@webiny/app-admin-okta";
+const Authentication = createAuthentication({ oktaSignIn, oktaAuth });
 import "./App.scss";
 
 export const App = () => (
@@ -46,7 +49,7 @@ export const App = () => (
                         {/*
                             <AppInstaller> checks and runs app installers registered via "admin-installation" plugins.
                         */}
-                        <AppInstaller Authentication={createAuthentication()}>
+                        <AppInstaller Authentication={Authentication}>
                             {/*
                                 <I18NProvider> loads system locales. Webiny supports multi-language content and language-based
                                 permissions, so we always need to know all locales to be able to render language selectors,
