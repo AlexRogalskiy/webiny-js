@@ -45,7 +45,6 @@ export default ({ documentClient }) => [
 
     createAuthenticator({
         issuer: process.env.OKTA_ISSUER as string,
-        clientId: process.env.OKTA_CLIENT_ID as string,
         getIdentity({ token }) {
             return {
                 id: token.sub,
